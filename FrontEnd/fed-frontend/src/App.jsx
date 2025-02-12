@@ -2,6 +2,7 @@ import Hero from "./Hero";
 import Navigation from "./Navigation";
 import Products from "./Products";
 
+
 function App() {
   const name = "Tharushi";
   const cartCount = 2;

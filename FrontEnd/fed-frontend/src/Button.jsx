@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 function Button(props) {
     const handleClick = (e) => {
       console.log(e);
@@ -14,5 +16,11 @@ function Button(props) {
       </button>
     );
   }
+  
+  Button.propTypes = {
+    children: PropTypes.node.isRequired,
+  };
+
+ 
   
   export default Button;

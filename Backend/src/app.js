@@ -6,9 +6,11 @@ import { productRouter } from './api/products.js';
 import globalErrorHandlingMiddleware from './api/middleware/global-error-handling-middleware.js';
 import { connectDB } from './infrastructure/db.js';
 import { categoryRouter } from './api/category.js';
+import cors from 'cors';
 
 const app = express();
 app.use(express.json()); // For parsing JSON requests
+app.use(cors({ origin: 'http://localhost:5173' }));
 
 /*app.use((req, res, next) =>{
     console.log("Request recieved");
