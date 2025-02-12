@@ -3,6 +3,7 @@ import Navigation from "./../Navigation";
 import Products from "./../Products";
 import { useState } from "react";
 
+
 function HomePage(){
     const name = null
     const [cart, setCart] = useState([]);
