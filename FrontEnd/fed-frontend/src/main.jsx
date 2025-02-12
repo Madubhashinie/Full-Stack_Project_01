@@ -1,4 +1,4 @@
-import { StrictMode } from 'react';
+
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router';
 import './index.css';
@@ -7,7 +7,7 @@ import SignUpPage from './pages/sign-up.page';
 import SignInPage from './pages/sign-in.page';
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
+  //<StrictMode>
 
     <BrowserRouter>
       <Routes>
@@ -16,5 +16,5 @@ createRoot(document.getElementById('root')).render(
         <Route path="/sign-up" element={<SignInPage/>}/>
       </Routes>
     </BrowserRouter>
-  </StrictMode>,
+  //</StrictMode>,
 )
