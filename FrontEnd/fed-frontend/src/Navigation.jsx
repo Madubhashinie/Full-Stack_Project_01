@@ -35,7 +35,6 @@ function Navigation(props) {
           </div>
         )}
         {props.name && <p>Hi, {props.name}</p>}
-        
       </div>
     </nav>
   );

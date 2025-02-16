@@ -1,6 +1,6 @@
 import * as React from "react"
 import * as SeparatorPrimitive from "@radix-ui/react-separator"
-
+import PropTypes from "prop-types";
 import { cn } from "@/lib/utils"
 
 const Separator = React.forwardRef((
@@ -18,6 +18,13 @@ const Separator = React.forwardRef((
     )}
     {...props} />
 ))
-Separator.displayName = SeparatorPrimitive.Root.displayName
+
+Separator.displayName = SeparatorPrimitive.Root.displayName;
+
+Separator.propTypes = {
+  className: PropTypes.string,
+  orientation: PropTypes.oneOf(["horizontal", "vertical"]),
+  decorative: PropTypes.bool,
+};
 
 export { Separator }

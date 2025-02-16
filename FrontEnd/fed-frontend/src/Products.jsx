@@ -1,26 +1,24 @@
-import ProductCards from "./ProductCards";
 import { Separator } from "@/components/ui/separator";
-import Tab from "./Tab";
-import { useEffect, useState } from "react";
-import { getProducts } from "@/lib/api";
+import { useGetCategoriesQuery, useGetProductsQuery } from "@/lib/api";
+import { useState } from "react";
 import { Skeleton } from "./components/ui/skeleton";
+import ProductCards from "./ProductCards";
+import Tab from "./Tab";
 
 function Products(props) {
-  const [products, setProducts] = useState([]);
-  const [isProductsLoading, setIsProductsLoading] = useState(true);
-  const [productsError, setProductsError] = useState({
-    isError: false,
-    message: "",
-  });
+  const {
+    data: products,
+    isLoading: isProductsLoading,
+    isError: isProductsError,
+    error: productsError,
+  } = useGetProductsQuery();
 
-  const categories = [
-    { _id: "ALL", name: "All" },
-    { _id: "1", name: "Headphones" },
-    { _id: "2", name: "Earbuds" },
-    { _id: "3", name: "Speakers" },
-    { _id: "4", name: "Mobile Phones" },
-    { _id: "5", name: "Smart Watches" },
-  ];
+  const {
+    data: categories,
+    isLoading: isCategoriesLoading,
+    isError: isCategoriesError,
+    error: categoriesError,
+  } = useGetCategoriesQuery();
 
   const [selectedCategoryId, setSelectedCategoryId] = useState("ALL");
   const filteredProducts =
@@ -32,33 +30,14 @@ function Products(props) {
     setSelectedCategoryId(_id);
   };
 
-  useEffect(() => {
-    getProducts()
-      .then((data) => {
-        setProducts(data);
-      })
-      .catch((error) => {
-        setProductsError({ isError: true, message: error.message });
-      })
-      .finally(() => setIsProductsLoading(false));
-  }, []);
-
-  if (isProductsLoading) {
+  if (isProductsLoading || isCategoriesLoading) {
     return (
       <section className="px-8 py-8">
         <h2 className="text-4xl font-bold">Our Top Products</h2>
 
         <Separator className="mt-2" />
         <div className="mt-4 flex items-center gap-4">
-          {categories.map((category) => (
-            <Tab
-              key={category._id}
-              _id={category._id}
-              selectedCategoryId={selectedCategoryId}
-              name={category.name}
-              onTabClick={handleTabClick}
-            />
-          ))}
+          <Skeleton className="h-16" />
         </div>
         <div className="grid grid-cols-4 gap-4 mt-4">
           <Skeleton className="h-80" />
@@ -70,25 +49,15 @@ function Products(props) {
     );
   }
 
-  if (productsError.isError) {
+  if (isProductsError || isCategoriesError) {
     return (
       <section className="px-8 py-8">
         <h2 className="text-4xl font-bold">Our Top Products</h2>
 
         <Separator className="mt-2" />
-        <div className="mt-4 flex items-center gap-4">
-          {categories.map((category) => (
-            <Tab
-              key={category._id}
-              _id={category._id}
-              selectedCategoryId={selectedCategoryId}
-              name={category.name}
-              onTabClick={handleTabClick}
-            />
-          ))}
-        </div>
+        <div className="mt-4 flex items-center gap-4"></div>
         <div className="mt-4">
-          <p className="text-red-500">{productsError.message}</p>
+          <p className="text-red-500">{`${productsError.message} ${categoriesError.message}`}</p>
         </div>
       </section>
     );
@@ -99,7 +68,7 @@ function Products(props) {
       <h2 className="text-4xl font-bold">Our Top Products</h2>
       <Separator className="mt-2" />
       <div className="mt-4 flex items-center gap-4">
-        {categories.map((category) => (
+        {[...categories, { _id: "ALL", name: "All" }].map((category) => (
           <Tab
             key={category._id}
             _id={category._id}
@@ -109,7 +78,7 @@ function Products(props) {
           />
         ))}
       </div>
-      <ProductCards handleAddToCart={props.handleAddToCart} products={filteredProducts} />
+      <ProductCards products={filteredProducts} />
     </section>
   );
 }

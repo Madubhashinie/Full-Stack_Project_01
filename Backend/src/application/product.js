@@ -3,7 +3,7 @@ import Product from "../infrastructure/schemas/Product.js";
 
 const products = [
   {
-    categoryId: "67a9d31fd1bf7667e996f857",
+    categoryId: "67547e11c6ec0beca167019d",
     image: "/assets/products/airpods-max.png",
     id: "1",
     name: "AirPods Max",
@@ -12,7 +12,7 @@ const products = [
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas, sequi?",
   },
   {
-    categoryId: "67a9d333d1bf7667e996f859",
+    categoryId: "3",
     image: "/assets/products/echo-dot.png",
     id: "2",
     name: "Echo Dot",
@@ -21,7 +21,7 @@ const products = [
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas, sequi?",
   },
   {
-    categoryId: "67a9dee78e4b709df66aea60",
+    categoryId: "2",
     image: "/assets/products/pixel-buds.png",
     id: "3",
     name: "Galaxy Pixel Buds",
@@ -30,7 +30,7 @@ const products = [
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas, sequi?",
   },
   {
-    categoryId: "67a9d31fd1bf7667e996f857",
+    categoryId: "67547e11c6ec0beca167019d",
     image: "/assets/products/quietcomfort.png",
     id: "4",
     name: "Bose QuiteComfort",
@@ -48,7 +48,7 @@ const products = [
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas, sequi?",
   },
   {
-    categoryId: "67a9df068e4b709df66aea64",
+    categoryId: "5",
     image: "/assets/products/apple-watch.png",
     id: "6",
     name: "Apple Watch 9",
@@ -66,7 +66,7 @@ const products = [
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas, sequi?",
   },
   {
-    categoryId: "67a9def48e4b709df66aea62",
+    categoryId: "4",
     image: "/assets/products/pixel-8.png",
     id: "8",
     name: "Galaxy Pixel 8",
@@ -77,7 +77,6 @@ const products = [
 ];
 
 export const getProducts = async (req, res, next) => {
-
   try {
     const { categoryId } = req.query;
     if (!categoryId) {
@@ -90,8 +89,6 @@ export const getProducts = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-
-  
 };
 
 export const createProduct = async (req, res, next) => {

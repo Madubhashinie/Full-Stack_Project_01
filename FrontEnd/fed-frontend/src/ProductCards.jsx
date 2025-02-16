@@ -1,4 +1,5 @@
 import ProductCard from "./ProductCard";
+import PropTypes from "prop-types";
 
 function ProductCards(props) {
   return (
@@ -6,7 +7,6 @@ function ProductCards(props) {
       {props.products.map((product) => {
         return (
           <ProductCard
-            handleAddToCart={props.handleAddToCart}
             key={product._id}
             _id={product._id}
             name={product.name}
@@ -19,5 +19,17 @@ function ProductCards(props) {
     </div>
   );
 }
+
+ProductCards.propTypes = {
+  products: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      price: PropTypes.number.isRequired,
+      image: PropTypes.string.isRequired,
+      description: PropTypes.string,
+    })
+  ).isRequired,
+};
 
 export default ProductCards;

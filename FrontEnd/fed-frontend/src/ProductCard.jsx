@@ -1,17 +1,25 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { addToCart } from "./lib/features/cartSlice";
+import PropTypes from "prop-types";
 
 function ProductCard(props) {
+  const count = useSelector((state) => state.counter.value);
+  const dispatch = useDispatch();
+
   const handleClick = (e) => {
-    props.handleAddToCart({
-      _id: props._id,
-      name: props.name,
-      price: props.price,
-      image: props.image,
-      description: props.description,
-    });
+    dispatch(
+      addToCart({
+        _id: props._id,
+        name: props.name,
+        price: props.price,
+        image: props.image,
+        description: props.description,
+      })
+    );
   };
+
 
   return (
     <Card>
@@ -33,5 +41,14 @@ function ProductCard(props) {
     </Card>
   );
 }
+
+
+ProductCard.propTypes = {
+  _id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  image: PropTypes.string.isRequired,
+  description: PropTypes.string,
+};
 
 export default ProductCard;
