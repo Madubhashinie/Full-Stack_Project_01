@@ -1,4 +1,6 @@
-const globalErrorHandlingMiddleware = (error, req, res, next) => {
+import { NextFunction } from "express";
+
+const globalErrorHandlingMiddleware = (error: Error, req: Request, res: Response, next: NextFunction) => {
   console.log(error);
   if (error.name === "NotFoundError") {
     return res

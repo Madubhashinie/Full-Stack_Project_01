@@ -1,6 +1,6 @@
-import NotFoundError from "../domain/errors/not-found-error.js";
-import Product from "../infrastructure/schemas/Product.js";
-
+import NotFoundError from "../domain/errors/not-found-error";
+import Product from "../infrastructure/schemas/Product";
+import { Request, Response, NextFunction } from "express";
 const products = [
   {
     categoryId: "67547e11c6ec0beca167019d",
@@ -76,7 +76,9 @@ const products = [
   },
 ];
 
-export const getProducts = async (req, res, next) => {
+export const getProducts = async (
+  req:Request, res:Response, next:NextFunction
+) => {
   try {
     const { categoryId } = req.query;
     if (!categoryId) {
@@ -91,7 +93,7 @@ export const getProducts = async (req, res, next) => {
   }
 };
 
-export const createProduct = async (req, res, next) => {
+export const createProduct = async (req:Request, res:Response, next:NextFunction) => {
   try {
     await Product.create(req.body);
     return res.status(201).send();
@@ -100,7 +102,7 @@ export const createProduct = async (req, res, next) => {
   }
 };
 
-export const getProduct = async (req, res, next) => {
+export const getProduct = async (req:Request, res:Response, next:NextFunction) => {
   try {
     const id = req.params.id;
     const product = await Product.findById(id).populate("categoryId");
@@ -114,7 +116,7 @@ export const getProduct = async (req, res, next) => {
   }
 };
 
-export const deleteProduct = async (req, res, next) => {
+export const deleteProduct = async (req:Request, res:Response, next:NextFunction) => {
   try {
     const id = req.params.id;
     const product = await Product.findByIdAndDelete(id);
@@ -128,7 +130,7 @@ export const deleteProduct = async (req, res, next) => {
   }
 };
 
-export const updateProduct = async (req, res, next) => {
+export const updateProduct = async (req:Request, res:Response, next:NextFunction) => {
   try {
     const id = req.params.id;
     const product = await Product.findByIdAndUpdate(id, req.body);

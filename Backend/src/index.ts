@@ -1,10 +1,10 @@
 import express from "express";
 
 import "dotenv/config";
-import { productRouter } from "./api/product.js";
-import { connectDB } from "./infrastructure/db.js";
-import globalErrorHandlingMiddleware from "./api/middleware/global-error-handling-middleware.js";
-import { categoryRouter } from "./api/category.js";
+import { productRouter } from "./api/product";
+import { connectDB } from "./infrastructure/db";
+import globalErrorHandlingMiddleware from "./api/middleware/global-error-handling-middleware";
+import { categoryRouter } from "./api/category";
 import cors from "cors";
 
 const app = express();
@@ -20,7 +20,7 @@ app.use(cors({ origin: "http://localhost:5173" }));
 app.use("/api/products", productRouter);
 app.use("/api/categories", categoryRouter);
 
-app.use(globalErrorHandlingMiddleware);
+//app.use(globalErrorHandlingMiddleware);
 
 connectDB();
 app.listen(8000, () => console.log(`Server running on port ${8000}`));
