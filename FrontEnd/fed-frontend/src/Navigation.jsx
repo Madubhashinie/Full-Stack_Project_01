@@ -1,6 +1,7 @@
 import { ShoppingCart } from "lucide-react";
 import { Link } from "react-router";
 import PropTypes from "prop-types";
+import { SignedIn, SignedOut, UserButton } from "@clerk/clerk-react";
 
 function Navigation(props) {
   return (
@@ -24,7 +25,7 @@ function Navigation(props) {
             </div>
           </a>
         </div>
-        {!props.name && (
+        <SignedOut>
           <div className="flex items-center gap-4">
             <Link to="/sign-in" className=" text-primary ">
               Sign In
@@ -33,15 +34,18 @@ function Navigation(props) {
               Sign Up
             </Link>
           </div>
-        )}
-        {props.name && <p>Hi, {props.name}</p>}
+        </SignedOut>
+
+        <SignedIn>
+          <UserButton />
+          <Link to={"/account"}>Account</Link>
+        </SignedIn>
       </div>
     </nav>
   );
 };
 
 Navigation.propTypes = {
-  name: PropTypes.string,
   cartCount: PropTypes.number,
 };
 
