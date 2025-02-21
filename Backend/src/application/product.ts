@@ -1,6 +1,8 @@
 import NotFoundError from "../domain/errors/not-found-error";
 import Product from "../infrastructure/schemas/Product";
+
 import { Request, Response, NextFunction } from "express";
+
 const products = [
   {
     categoryId: "67547e11c6ec0beca167019d",
@@ -77,46 +79,63 @@ const products = [
 ];
 
 export const getProducts = async (
-  req:Request, res:Response, next:NextFunction
+  req: Request,
+  res: Response,
+  next: NextFunction
 ) => {
   try {
     const { categoryId } = req.query;
     if (!categoryId) {
       const data = await Product.find();
-      return res.status(200).json(data);
+      res.status(200).json(data);
+      return;
     }
 
     const data = await Product.find({ categoryId });
-    return res.status(200).json(data).send();
+    res.status(200).json(data).send();
+    return;
   } catch (error) {
     next(error);
   }
 };
 
-export const createProduct = async (req:Request, res:Response, next:NextFunction) => {
+export const createProduct = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     await Product.create(req.body);
-    return res.status(201).send();
+    res.status(201).send();
+    return;
   } catch (error) {
     next(error);
   }
 };
 
-export const getProduct = async (req:Request, res:Response, next:NextFunction) => {
+export const getProduct = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const id = req.params.id;
     const product = await Product.findById(id).populate("categoryId");
     if (!product) {
       throw new NotFoundError("Product not found");
     }
-
-    return res.status(200).json(product).send();
+    res.status(200).json(product).send();
+    return;
   } catch (error) {
     next(error);
   }
 };
 
-export const deleteProduct = async (req:Request, res:Response, next:NextFunction) => {
+export const deleteProduct = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const id = req.params.id;
     const product = await Product.findByIdAndDelete(id);
@@ -124,13 +143,18 @@ export const deleteProduct = async (req:Request, res:Response, next:NextFunction
     if (!product) {
       throw new NotFoundError("Product not found");
     }
-    return res.status(204).send();
+    res.status(204).send();
+    return;
   } catch (error) {
     next(error);
   }
 };
 
-export const updateProduct = async (req:Request, res:Response, next:NextFunction) => {
+export const updateProduct = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const id = req.params.id;
     const product = await Product.findByIdAndUpdate(id, req.body);
@@ -139,7 +163,8 @@ export const updateProduct = async (req:Request, res:Response, next:NextFunction
       throw new NotFoundError("Product not found");
     }
 
-    return res.status(200).send(product);
+    res.status(200).send(product);
+    return; 
   } catch (error) {
     next(error);
   }

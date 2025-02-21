@@ -19,8 +19,7 @@ app.use(cors({ origin: "http://localhost:5173" }));
 
 app.use("/api/products", productRouter);
 app.use("/api/categories", categoryRouter);
-
-//app.use(globalErrorHandlingMiddleware);
+app.use(globalErrorHandlingMiddleware);
 
 connectDB();
 app.listen(8000, () => console.log(`Server running on port ${8000}`));
