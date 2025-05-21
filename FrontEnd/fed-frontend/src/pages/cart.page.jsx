@@ -11,6 +11,13 @@ function CartPage() {
         <main className="px-8">
             <h2 className="text-4xl font-bold">My Cart</h2>
             <div>
+                {cart.map((item, index) => (
+                    <div key={index}>
+                        <p>{item.product.name}</p>
+                        <p>{item.product.price}</p>
+                        <p>{item.quantity}</p>
+                    </div>
+                ))}
                 
             </div>
 
