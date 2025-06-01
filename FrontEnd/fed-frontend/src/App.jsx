@@ -3,7 +3,7 @@ import Navigation from "./Navigation";
 import Products from "./Products";
 
 function App() {
-  const name = "Manupa";
+  const name = "Tharushi";
   const cartCount = 2;
 
   return (
